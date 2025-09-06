@@ -1,12 +1,11 @@
 from django.core.management.base import BaseCommand
 import time
-import psycopg2
 from django.db import connections
 from django.db.utils import OperationalError
 
 
 class Command(BaseCommand):
-    help_text = "Waits for database to be available before continuing."
+    help = "Waits for database to be available before continuing."
 
     def handle(self, *args, **options):
         self.stdout.write("Waiting for database...")

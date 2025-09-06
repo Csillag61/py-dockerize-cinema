@@ -6,7 +6,6 @@ WORKDIR /app
 
 # Install dependencies
 COPY requirements.txt .
-
 RUN pip install --upgrade pip
 RUN pip config set global.cert /etc/ssl/certs/ca-certificates.crt || true
 RUN pip install --no-cache-dir -r requirements.txt
@@ -14,8 +13,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy project files
 COPY . .
 
-# Collect static files (optional)
-RUN python manage.py collectstatic --noinput
+# Copy entrypoint script
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
-# Run the app
-CMD ["gunicorn", "cinema_service.wsgi:application", "--bind", "0.0.0.0:8000"]
+# Use entrypoint to wait for DB, collectstatic, then run Gunicorn
+ENTRYPOINT ["/entrypoint.sh"]

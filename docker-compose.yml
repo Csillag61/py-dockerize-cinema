@@ -9,10 +9,10 @@ services:
       - postgres_data:/var/lib/postgresql/data
   app:
     build: .
-    command: >
-      sh -c "python manage.py wait_for_db && gunicorn cinema_service.wsgi:application --bind 0.0.0.0:8000"
     volumes:
       - .:/app
+      - ./staticfiles:/app/staticfiles
+      - ./media:/app/media
     ports:
       - '8000:8000'
     depends_on:
