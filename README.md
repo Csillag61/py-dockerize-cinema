@@ -45,4 +45,4 @@ docker-compose run app sh -c "python manage.py test"
 docker-compose run app sh -c "python manage.py test"
 ```
 
-1. If everything is working fine, you are ready to push your code :)
+1. If everything is working fine, you are ready to push your code.
